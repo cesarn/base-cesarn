@@ -1,0 +1,43 @@
+/*
+primero haremos nuertro programa pl hola mundo
+*/
+
+set serveroutput on;
+
+--este es un comentario de una sola linea
+
+--DECLARE aqui se declaran las variables, si es que hay 
+
+BEGIN  --este bloque marca el inicio de tu logica de programacion, no debe de estar vacio nunca
+--NULL;
+
+DBMS_OUTPUT.PUT_LINE('PRIMER PROGRAMA');
+
+--EXCEPTION este bloque es opcional ya que todos  nuestros codigos lanzan excepciones
+
+END;
+--/ la slash se usa si quieres  correr este bloque dsde linea de comandos y 
+-- marca la terminacion del bloque pl sql y su ejecucion 
+
+--otro programa de pl sql 
+DECLARE 
+EDAD  INTEGER;
+EDAD_DIAS INTEGER;
+BEGIN
+EDAD:=22;
+EDAD_DIAS:=EDAD*365;
+DBMS_OUTPUT.PUT_LINE('TU EDAD EN DIAS ES: '||EDAD_DIAS);
+END;
+
+DROP TABLE HOLA1;
+CREATE TABLE HOLA (ID INTEGER, EDAD INTEGER, NOMBRE VARCHAR2(120));
+
+BEGIN 
+
+FOR I IN 1..10 LOOP
+DBMS_OUTPUT.PUT_LINE(I||'PRIMER CICLO');
+INSERT INTO HOLA VALUES(I,22,'JUAN CARLOS');
+END LOOP;
+
+END;
+SELECT*FROM HOLA;
