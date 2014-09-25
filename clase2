@@ -1,0 +1,12 @@
+create table pelicula (id_pelicula integer, titulo varchar2 (120), director varchar2 (120), sinopsis varchar2 (255), CONSTRAINT pk_id_pelicula primary key (id_pelicula));
+
+/*crear la segunda tabla*/
+
+create table horario (id_horario integer, id_pelicula integer, fecha date, constraint pk_id_horario primary key (id_horario), constraint fk1_id_pelicula foreign key (id_pelicula) references pelicula(id_pelicula) );
+
+/*creamos la secuencia correspondiente a la tabla pelicula*/
+
+create sequence secuencia_pelicula
+start with 1
+increment by 1
+nomaxvalue;
