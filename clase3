@@ -1,0 +1,27 @@
+drop table algodón;
+
+create table algodon(id_algo integer, edad integer,nombre varchar2 (120),
+ constraint pk_id_algodon primary key (id_algo));
+
+create sequence secuencia1_algodon
+start with 1
+increment by 1
+nomaxvalue;
+
+create or replace procedure guardar_algodon(my_id_algodon out integer,my_edad in integer,my_nombre in varchar2)
+as
+begin
+select secuencia1_algodon.nextval into my_id_algodon from dual;
+insert into algodon values (my_id_algodon,my_edad,my_nombre);
+end;
+/
+
+declare 
+valor integer;
+begin
+guardar_algodon(valor,42,'juan');
+dbms_output.put_line('registro guardado con id:' ||valor);
+end;
+/
+
+select*from algodon;
