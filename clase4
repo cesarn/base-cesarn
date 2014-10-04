@@ -1,0 +1,44 @@
+create table tonto (id integer, valor float, fecha date);
+
+begin 
+for i in 1..10 loop 
+insert into tonto values (i, i, sysdate);
+end loop;
+end;
+
+select*from tonto;
+
+declare 
+cursor cursor_tonto is select * from tonto;
+begin 
+for rec  in cursor_tonto loop 
+dbms_output.put_line('en cada vuelta del cursor vemos esto');
+dbms_output.put_line(rec.valor);
+end loop;
+end;
+
+
+create or replace procedure acumulado_tonto(sumatoria out float)
+as
+cursor cursor_tonto is select*from tonto;
+begin 
+sumatoria:=0;
+for rec in cursor_tonto loop
+sumatoria:=sumatoria+(rec.id*rec.valor);
+end loop;
+end;
+
+declare
+valor float;
+begin
+acumulado_tonto(valor);
+dbms_output.put_line(valor);
+end;
+
+declare 
+cursor cursor_tonto2 is select*from tonto for update;
+begin 
+for rec in cursor_tonto2 loop
+update tonto set valor=valor*2 where current of cursor_tonto2;
+end loop;
+end;
