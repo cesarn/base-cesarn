@@ -1,0 +1,62 @@
+create table guardar_developer(id_developer  integer, nombre varchar2(120), email varchar2(120), constraint pk_id_developer primary key (id_developer));
+
+create table tarea(id_tarea integer, id_developer integer, descripcion varchar2(500), completada char, porciento_completaa integer, fecha date,constraint pk_id_tarea primary key (id_tarea),constraint fk_id_developer foreign key (id_developer) references guardar_developer(id_developer));
+
+drop table tarea;
+
+create sequence secuencia_guardar_developer
+start with 1
+increment by 1
+nomaxvalue;
+
+create sequence secuencia_tarea
+start with 1
+increment by 1
+nomaxvalue;
+
+create or replace procedure guardar1_developer(my_id_developer out integer,my_nombre in varchar2,my_email in varchar2)
+as
+begin
+select secuencia_guardar_developer.nextval into my_id_developer from dual;
+insert into guardar_developer values (my_id_developer,my_nombre,my_email);
+end;
+
+
+create or replace procedure guardar1_tarea(my_id_tarea out integer,my_id_developer in integer,my_descripcion in varchar2,my_completada char, my_porciento_completada integer,fecha date)
+as
+begin
+select secuencia_tarea.nextval into my_id_tarea from dual;
+insert into tarea values (my_id_tarea,my_id_developer,my_descripcion,my_completada,my_porciento_completada,fecha);
+end;
+
+
+declare 
+valor integer;
+begin
+guardar1_developer(valor,'BRENDA','BRENDAGMAIL.COM');
+guardar1_developer(valor,'JOSE OMAR','OMAR@YAHOO.COM');
+guardar1_developer(valor,'VICTOR ANGEL','VICTOR@HOTMAIL.COM');
+guardar1_developer(valor,'LESLYE','LESLIE@LIVE.COM');
+dbms_output.put_line('registro guardado con id:' ||valor);
+end;
+
+select*from guardar_developer;
+select*from tarea;
+
+declare 
+valor1 integer;
+begin
+guardar1_tarea(valor1,1,'creacion de pagina web','n',0,SYSDATE);
+guardar1_tarea(valor1,2,'creacion de tablas','n',0,SYSDATE);
+guardar1_tarea(valor1,3,'progrmacion de procedimientos','n',0,SYSDATE);
+guardar1_tarea(valor1,4,'ROGRAMACION DE LOS SERVICIOS WEB','n',0,SYSDATE);
+dbms_output.put_line('registro guardado con id:' ||valor1);
+end;
+
+
+create or replace procedure ACTUALIZAR_TAREA(ID_DEVELOPER in integer,ID_TAREA in integer)
+as
+begin
+select secuencia_tarea.nextval into my_id_tarea from dual;
+insert into tarea values (my_id_tarea,my_id_developer,my_descripcion,my_completada,my_porciento_completada,fecha);
+end;
