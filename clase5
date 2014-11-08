@@ -37,7 +37,16 @@ select * from registro;
 select * from registro_mayor;
 
 -----TAREA
-create table usuario_reg(id integer, email varchar2(80), edad integer, fecha_corte date);
-insert  into usuario_reg (id,email,edad) values(1,'xxx',20);
+create table usuario_reg(id integer, email varchar2(80), edad integer);
+insert  into usuario_reg values(2,'xxx',23);
+select*from usuario_reg;
 
+/*elbauldelprogramador,oracleya.com*/
 /*crear un disparador de tipo before para los update. si la hora esta en el rango de 8pm a 10pm, impedir el update.
+
+create or replace trigger disparador_usuario before insert or update on usuario_reg for each row 
+begin 
+if to_char(SYSDATE, 'HH24')<11 or to_char(SYSDATE, 'HH24')>=22  then 
+raise_application_error( -20501,'FUERA DE TIEMPO');
+end if;
+end;
