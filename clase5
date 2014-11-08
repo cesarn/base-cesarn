@@ -1,0 +1,34 @@
+create table usuario_xxx(id_usuario integer, nombre varchar2(80),edad integer);
+
+---creamos el disparador
+create or replace trigger disparador_usuario_xxx before insert on usuario_xxx for each row
+begin
+if :new.edad <18 or length(:new.nombre)<4 then
+raise_application_error(-20001,'lo siento eres menor de edad');
+end if;
+end;
+
+--probamos con un insert 
+insert into usuario_xxx(edad,nombre) values(22,'uno');
+select * from usuario_xxx;
+
+
+---ejercicio no. 2 disparador de tipo arter
+create table registro (id integer, email varchar2(60), edad integer);
+create table registro_menor(id integer, email varchar2(60), edad integer);
+create table registro_mayor(id integer, email varchar2(60), edad integer);
+
+--creamos el disparador de tipo after
+create or replace trigger disparador_registro after insert on registro for each row 
+begin 
+if :new.edad<18 then 
+insert into registro_menor values(:new.id,:new.email,:new.edad);
+else
+insert into registro_mayor values(:new.id,:new.email,:new.edad);
+end if;
+end;
+
+insert into registro values (1,'xxx',19);
+
+select * from registro,registro_mayor;
+select * from registro_menor;
