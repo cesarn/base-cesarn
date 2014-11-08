@@ -28,7 +28,16 @@ insert into registro_mayor values(:new.id,:new.email,:new.edad);
 end if;
 end;
 
-insert into registro values (1,'xxx',19);
+insert into registro values (1,'xxx1',16);
 
 select * from registro,registro_mayor;
+select * from registro,registro_mayor,registro_menor;
 select * from registro_menor;
+select * from registro;
+select * from registro_mayor;
+
+-----TAREA
+create table usuario_reg(id integer, email varchar2(80), edad integer, fecha_corte date);
+insert  into usuario_reg (id,email,edad) values(1,'xxx',20);
+
+/*crear un disparador de tipo before para los update. si la hora esta en el rango de 8pm a 10pm, impedir el update.
